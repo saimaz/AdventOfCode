@@ -1,9 +1,8 @@
-import sys
+import argparse
 
 
-def calculate(filepath):
-    with open(filepath, 'r') as file:
-        lines = file.read().strip().split('\n')
+def calculate(data):
+    lines = data.strip().split('\n')
 
     seed_info = [int(x) for x in lines[0].split(': ')[1].split()]
     seeds = [(seed_info[i], seed_info[i] + seed_info[i+1] - 1) for i in range(0, len(seed_info), 2)]
@@ -50,13 +49,57 @@ def calculate(filepath):
     return res
 
 
+def parse_arguments():
+    parser = argparse.ArgumentParser(description="Calculate the result for Advent of Code.")
+    parser.add_argument("-t", "--test", action="store_true", help="Run with test data")
+    parser.add_argument("-i", "--input", default="input.txt", help="Input file path")
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "-s":
-        file_path = "input.txt"
+    args = parse_arguments()
+
+    test_data = """
+seeds: 79 14 55 13
+
+seed-to-soil map:
+50 98 2
+52 50 48
+
+soil-to-fertilizer map:
+0 15 37
+37 52 2
+39 0 15
+
+fertilizer-to-water map:
+49 53 8
+0 11 42
+42 0 7
+57 7 4
+
+water-to-light map:
+88 18 7
+18 25 70
+
+light-to-temperature map:
+45 77 23
+81 45 19
+68 64 13
+
+temperature-to-humidity map:
+0 69 1
+1 0 69
+
+humidity-to-location map:
+60 56 37
+56 93 4
+        """
+
+    if args.test:
+        result = calculate(test_data)
     else:
-        file_path = "input_test.txt"
+        with open(args.input, 'r') as file:
+            file_data = file.read()
+        result = calculate(file_data)
 
-    result = calculate(file_path)
     print("Answer:", result)
-
-
