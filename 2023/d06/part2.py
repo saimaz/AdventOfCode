@@ -16,7 +16,7 @@ def calculate(data):
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description="Calculate the number of wins for Advent of Code.")
+    parser = argparse.ArgumentParser()
     parser.add_argument("-t", "--test", action="store_true", help="Run with test data")
     parser.add_argument("-i", "--input", default="input.txt", help="Input file path")
     return parser.parse_args()
