@@ -12,7 +12,7 @@ def calculate(data):
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description="Calculate the sum for Advent of Code.")
+    parser = argparse.ArgumentParser()
     parser.add_argument("-t", "--test", action="store_true", help="Run with test data")
     parser.add_argument("-i", "--input", default="input.txt", help="Input file path")
     return parser.parse_args()
@@ -21,10 +21,12 @@ def parse_arguments():
 if __name__ == "__main__":
     args = parse_arguments()
 
-    test_data = """1abc2
+    test_data = """
+1abc2
 pqr3stu8vwx
 a1b2c3d4e5f
-treb7uchet"""
+treb7uchet
+"""
 
     if args.test:
         result = calculate(test_data)
