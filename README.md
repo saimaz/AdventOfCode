@@ -3,7 +3,7 @@
 My personal attempt to solve Advent of code challenges.
 
 ## Requirements
-Create `.env` file from `.env.dist` and add a session value from the Advent of Code website. This is required to download the input data for each day.
+Create `.env` file from `.env.dist` and add a session cookie value from the Advent of Code website. This is required to download the input data for each day.
 
 
 ## Setup
@@ -11,7 +11,7 @@ Create `.env` file from `.env.dist` and add a session value from the Advent of C
 The `setup.py` script is used to create a new folder for each day's challenge and populate it with starter files based on a template.
 
 ### Usage
-If you want to set up the environment for the current day, run:
+If you want to set up the environment for the current day, just run:
 
 ```bash
 python3 setup.py
@@ -38,7 +38,14 @@ python3 run.py -y [year] -d [day] -p2 # For part 2
 This will use `input.txt` as the input file for the solution. If you want to run with the test data, use the `-t` flag:
 
 ```bash
-python3 run.py -p1 -t 
+python3 run.py -t 
+```
+
+Run to calculate final answer for the day:
+
+```bash
+python3 run.py 
+python3 run.py -p2
 ```
 
 
