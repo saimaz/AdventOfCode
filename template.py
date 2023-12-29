@@ -3,7 +3,7 @@ import argparse
 
 def calculate(data):
     total_sum = 0
-    for line in data.strip().split('\n'):
+    for line in data:
         total_sum += 1
     return total_sum
 
@@ -22,13 +22,11 @@ if __name__ == "__main__":
 aaa
 bbb
 ccc
-"""
+""".strip().split("\n")
 
-    if args.test:
-        result = calculate(test_data)
-    else:
+    if not args.test:
         with open(args.input, 'r') as file:
             file_data = file.read()
-        result = calculate(file_data)
+        test_data = file_data.strip().split('\n')
 
-    print("Answer:", result)
+    print("Answer:", calculate(test_data))
