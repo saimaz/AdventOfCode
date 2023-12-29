@@ -3,29 +3,29 @@ import re
 
 
 def calculate(data):
-    lines = data.strip().split("\n")
-    ws = [re.findall("\w+", line) for line in lines]
+    dirs = data[0]
+    moves = {}
+    for line in data[2:]:
+        node, left, right = re.findall("(\w+)", line)
+        moves[node] = {'L': left, 'R': right}
 
-    (dirs,), _, *moves = ws
-    move = {
-        "L": {start: l for start, l, _ in moves},
-        "R": {start: r for start, _, r in moves},
-    }
+    start_nodes = {node for node in moves if node.endswith('A')}
+    current_nodes = start_nodes
+    steps = 0
 
-    starts = [start for start in move['L'] if start.endswith('A')]
-    current_nodes = set(starts)
+    while not all(node.endswith('Z') for node in current_nodes):
+        next_nodes = set()
+        direction = dirs[steps % len(dirs)]
+        for node in current_nodes:
+            next_nodes.add(moves[node][direction])
+        current_nodes = next_nodes
+        steps += 1
 
-    i = 0
-    while True:
-        d = dirs[i % len(dirs)]
-        current_nodes = {move[d][node] for node in current_nodes}
-        if all(node.endswith('Z') for node in current_nodes):
-            return i + 1
-        i += 1
+    return steps
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description="Calculate the steps to reach ZZZ for Advent of Code.")
+    parser = argparse.ArgumentParser()
     parser.add_argument("-t", "--test", action="store_true", help="Run with test data")
     parser.add_argument("-i", "--input", default="input.txt", help="Input file path")
     return parser.parse_args()
@@ -44,13 +44,11 @@ DDD = (DDD, DDD)
 EEE = (EEE, EEE)
 GGG = (GGG, GGG)
 ZZZ = (ZZZ, ZZZ)
-"""
+    """.strip().split("\n")
 
-    if args.test:
-        result = calculate(test_data)
-    else:
+    if not args.test:
         with open(args.input, 'r') as file:
             file_data = file.read()
-        result = calculate(file_data)
+        test_data = file_data.strip().split('\n')
 
-    print("Answer:", result)
+    print(calculate(test_data))

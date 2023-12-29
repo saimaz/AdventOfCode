@@ -3,28 +3,26 @@ import re
 
 
 def calculate(data):
-    lines = data.strip().split("\n")
-    dirs = re.findall("\w", lines[0])
-    moves = [re.findall("\w+", line) for line in lines[2:]]
+    dirs = data[0]
+    moves = {}
+    for line in data[2:]:
+        # print(line)
+        node, left, right = re.findall("(\w+)", line)
+        moves[node] = {'L': left, 'R': right}
 
-    move = {
-        "L": {start: l for start, l, _ in moves},
-        "R": {start: r for start, _, r in moves},
-    }
+    current_node = 'AAA'
+    steps = 0
 
-    here = 'AAA'
-    i = 0
+    while current_node != 'ZZZ':
+        direction = dirs[steps % len(dirs)]
+        current_node = moves[current_node][direction]
+        steps += 1
 
-    while here != 'ZZZ':
-        d = dirs[i % len(dirs)]
-        here = move[d][here]
-        i += 1
-
-    return i
+    return steps
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description="Calculate the steps to reach ZZZ for Advent of Code.")
+    parser = argparse.ArgumentParser()
     parser.add_argument("-t", "--test", action="store_true", help="Run with test data")
     parser.add_argument("-i", "--input", default="input.txt", help="Input file path")
     return parser.parse_args()
@@ -43,13 +41,11 @@ DDD = (DDD, DDD)
 EEE = (EEE, EEE)
 GGG = (GGG, GGG)
 ZZZ = (ZZZ, ZZZ)
-    """
+    """.strip().split("\n")
 
-    if args.test:
-        result = calculate(test_data)
-    else:
+    if not args.test:
         with open(args.input, 'r') as file:
             file_data = file.read()
-        result = calculate(file_data)
+        test_data = file_data.strip().split('\n')
 
-    print("Answer:", result)
+    print(calculate(test_data))
