@@ -25,4 +25,4 @@ def get_test_data():
 1 3
 3 9
 3 3
-""".strip().split("\n")
+"""

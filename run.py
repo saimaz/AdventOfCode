@@ -13,8 +13,8 @@ def run_script(year, day, part, is_test):
     script_module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(script_module)
 
-    data_loader = getattr(script_module, "get_test_data", lambda: open(input_file).read().strip().split("\n"))
-    data = data_loader() if is_test else load_input_data(input_file)
+    data_loader = getattr(script_module, "get_test_data", lambda: open(input_file).read().strip())
+    data = data_loader().strip().split("\n") if is_test else load_input_data(input_file)
     result = script_module.solve(data)
     print("Answer:", result)
 

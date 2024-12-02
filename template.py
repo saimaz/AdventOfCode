@@ -10,4 +10,4 @@ def get_test_data():
 1
 2
 3
-""".strip().split("\n")
+"""
