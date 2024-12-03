@@ -1,4 +1,7 @@
-def solve(data):
+from typing import List
+
+
+def solve(data: List[str]):
     left_list = []
     right_list = []
 

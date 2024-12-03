@@ -1,7 +1,8 @@
 from collections import Counter
+from typing import List
 
 
-def solve(data):
+def solve(data: List[str]):
     left_list = []
     right_list = []
 

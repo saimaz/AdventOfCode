@@ -1,6 +1,9 @@
-def solve(data):
+from typing import List
 
-    answer = 3
+
+def solve(data: List[str]):
+
+    answer = len(data)
 
     return answer
 

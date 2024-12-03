@@ -1,4 +1,7 @@
-def solve(data):
+from typing import List
+
+
+def solve(data: List[str]):
     def is_safe(report):
         levels = list(map(int, report.split()))
         diff = [levels[i + 1] - levels[i] for i in range(len(levels) - 1)]
